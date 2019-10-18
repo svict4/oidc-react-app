@@ -4,9 +4,12 @@ import { AuthConsumer } from "../../providers/authProvider";
 
 export const Callback = () => (
     <AuthConsumer>
-        {({ signinRedirectCallback }) => {
-            signinRedirectCallback();
-            return <span>loading</span>;
+        {({ signinRedirect, signinRedirectCallback }) => {
+            if (Boolean(window.location.hash)) {
+                signinRedirectCallback();
+            } else {
+                signinRedirect();
+            }
         }}
     </AuthConsumer>
 );
